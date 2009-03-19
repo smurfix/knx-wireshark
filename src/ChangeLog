@@ -1,0 +1,10 @@
+---- Version 0.0.1 ----
+initial version with basic functionality
+
+---- Version 0.0.2 ----
+bugfixes - sprintf replaced by g_snprintf
+windows & linux version running
+
+---- Version 0.0.3 ----
+provide ability to write cEMI dissector
+several small bugfixes and code 
