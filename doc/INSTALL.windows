@@ -1,0 +1,12 @@
+1. Installallation
+------------------
+
+Download the latest release of the windows binary of the KNXnet/IP plugin (e.g. KNXnetIP_plugin_V0.0.3_windows.zip). Extract the contents to a temporary directory.
+Copy the contents of knxnetip\plugins (there should be one dll-file) into your Wireshark plugins directory (e.g. under C:\Programme\Wireshark\plugins\1.0.6 ).
+
+Restart Wireshark (if it is running) and enjoy our plugin!
+
+2. Binary information
+---------------------
+
+The plugin version 0.0.3 was built on Windows XP (SP2) using Microsoft Visual Studio 2003.

@@ -1,0 +1,4 @@
+To build the Wireshark dissector, carefully read the build instructions written at
+http://www.codeproject.com/KB/IP/custom_dissector.aspx
+
+You have to fulfill the requirements (Section 1.0) and configure the Wireshark Build Environment (Section 2.0).
