@@ -1,1 +1,29 @@
-For information about installation of the plugin and usage of the filters, please refer to https://www.auto.tuwien.ac.at/a-lab/wireshark-plugin-for-knxnet/ip.html
+This is a short description of the KNXnet/IP Wireshark dissector. The project is hosted on http://knxnetipdissect.sourceforge.net/.
+Documentation can be found at the project website or in the doc-directory of the source.
+
+
+Files in this directory:
+AUTHORS
+	The authors of this piece of software
+ChangeLog
+	Record of changes made to this project
+COPYING
+	Copyright information
+Makefile.am
+	Automake file for KNXnet/IP Wireshark plugin
+Makefile.common
+	Contains the stuff from Makefile.am and Makefile.nmake that is
+		a) common to both files and
+		b) portable between both files
+Makefile.nmake
+	Windows build file
+moduleinfo.h
+	global module informations
+moduleinfo.nmake
+	global information for Windows build
+packet-knxnetip.c
+	Wireshark dissector for KNXnet/IP packets
+plugin.rc.in
+	configuration file for the Windows-DLL
+README
+	this file

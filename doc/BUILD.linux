@@ -1,0 +1,40 @@
+1. About
+--------
+
+This document should give a brief insight on howto build the KNXnet/IP dissector under linux. It is probably not THE way to do this, but I try to explain how I was able to create the binary.
+
+
+2. Requirements
+---------------
+
+The plugin version 0.0.3 was built on Kubuntu 8.10 (kernel version 2.6.27-11-generic).
+The used GLib version was 2.18.2, GCC version was 4.3.2-1.
+To build the plugin, of course you need the development packages of the GLib.
+
+Download the Wireshark source from the Wireshark project page (maybe it is also possible to use Wireshark-dev packages of your distribution - I don't know). You will get a lot of information at http://www.wireshark.org. I used the latest developer version from the subversion repository. Copy our KNXnet/IP plugin into the source tree. When we did it, the appropriate directory was: "wireshark/plugins/knxnetip"
+In the "doc" directory of wireshark you will find the file "README.plugins", which provides a good guidance for all changes you will have to make in the Wireshark build- and configuration files.
+
+The Makefiles, which are necessary to build the plugin, are generated automatically - adapted to your system - by the automake tool chain. Install automake (I suggest using version 1.9 - the different versions of automake are usually not that compatible), as well as autoconf (I used version 2.61-7). Change into the root directory of the Wireshark tree (the directory is called "wireshark").
+
+The shell skript "autogen.sh" should do the rest for you. Start it by typing
+./autogen.sh
+
+If everything went fine, you can run the newly created "configure" skript:
+./configure
+
+It will check all the dependencies and return with an error if some package is missing. Of course, if during the execution of "autogen.sh" or "configure" it turns out, that some things are missing (like the package "flex"), you have to install the missing libraries and rerun the tools.
+
+3. Build
+--------
+
+By typing "make" in the Wireshark root, you will start building the whole Wireshark program. This can take a while. To start the sucessfully built program, type
+./wireshark
+This wrapper skript will set all necessary environment variables and parameter in order to run the recently built binary and plugins instead of probably previously installed ones.
+
+If you want to build only our KNXnet/IP plugin, change into the plugin directory (like mentioned before, this probably will be "wireshark/plugins/knxnetip"). Typing "make" will start the building process. There should be no error and no warning here.
+To use the built plugin within an existing Wireshark installation, change into the directory ".libs" and copy the files "knxnetip.so" and "knxnetip.la" into Wiresharks plugins directory (see INSTALL.linux).
+
+4. Debug
+--------
+
+You maybe want to change our code and debug your stuff now. I did this by compiling the whole Wireshark program (including our plugin). But the debugger will not work on the wrapper-script (mentioned before). But: execute the wrapper script once (after every build). This will create a binary file called "lt-wireshark" in the ".libs" directory (in the Wireshark root directory). Use your favourite debugger now to debug this binary.
