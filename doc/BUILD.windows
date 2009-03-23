@@ -1,4 +1,5 @@
 To build the Wireshark dissector, carefully read the build instructions written at
 http://www.codeproject.com/KB/IP/custom_dissector.aspx
+A PDF version (from March 2009) of this tutorial can also be found in the svn-tree of this project (http://knxnetipdissect.svn.sourceforge.net/viewvc/knxnetipdissect/trunk/doc/codeproject.pdf?view=log).
 
 You have to fulfill the requirements (Section 1.0) and configure the Wireshark Build Environment (Section 2.0).
