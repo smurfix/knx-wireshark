@@ -1,0 +1,662 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>KNXnet/IP Wireshark plugin</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="main_container">
+<div id="header">
+<h1>KNXnet/IP</br>Wireshark</br>dissector</h1>
+</div>
+<div id="navigation"><a href="index.html">Home</a> <a href="https://sourceforge.net/project/showfiles.php?group_id=256885">Download</a> <a href="install.html">Install</a> <a href="doc.html">Documentation</a> <a href="links.html">Links</a> <a href="about.html">About</a> </div>
+<div id="content">
+
+<h2>Display Filter </h2>
+<p>Display filters are rules to extract the exact traffic you want to see.</p>
+<center>
+<img src="images/Wireshark_filter.gif"
+      alt="Active Image"
+      width="724"
+      height="604"
+	  align="middle"	  />
+</center>
+<h3>
+<u>Available Display Filter Commands:</u>
+</h3>
+<ul>
+<li>
+<strong>knxnetip</strong>
+</li>
+
+</ul>
+<blockquote>
+filters all KNXnetIP package
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.header</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a header, since there are no packages without a
+KNXnetIP header it filters all KNXnetIP packages
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.hlen</strong>
+
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a header length field, since there are no packages
+without a header length field it filters all KNXnetIP packages.
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.version</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a protocol version field, since there are no packages
+without a KNXnetIP protocol version field it filters all KNXnetIP packages.
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.type</strong>
+
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a Service Type Identifier field, since there are no
+packages without a KNXnetIP Service Type Identifier field it filters all KNXnetIP
+packages.
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific Service Type Identifier, e.g.
+<strong>knxnetip.type==0x0201</strong> (or <strong>knxnetip.type eq 0x0201</strong>
+)-&gt; filters all TUNNELLING_REQUEST packages. For all possible service types look at
+the <a href="#ServiceTypes">table</a> below.<br />
+
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.tlen</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing total length field, since there are no
+packages without a total length field it filters all KNXnetIP packages.
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specifc total length of a KNXnetIP package, e.g.
+<strong>knxnetip.tlen==21</strong> (or <strong>knxnetip.tlen eq 21</strong> )-&gt;
+
+filters all packages with a total length of 21 (total length = header length + length of
+the payload).
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.body</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a payload.
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.hpai</strong>
+</li>
+</ul>
+
+<blockquote>
+filters all KNXnetIP packages with a Host Protocol Address Information (HPAI) block.
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.hpai_length</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a HPAI length field.
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.hpai_host_protocol_code</strong>
+</li>
+
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a host protocol code field.
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific value in the host protocol code field,
+e.g. <strong>knxnetip.hpai_host_protocol_code == 1</strong> (or
+<strong>knxnetip.hpai_host_protocol_code eq 1</strong> )-&gt; filters all packages where
+the host protocol is "IPV4_UDP". So far there are just two codes available
+</blockquote>
+<blockquote>
+<ol>
+
+<li>0x01 -&gt; IPV4_UDP<br />
+</li>
+<li>0x02 -&gt; IPV4_TCP<br />
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.hpai_ip_address</strong>
+</li>
+
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a HPAI address field
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific HPAI IP address, e.g.
+<strong>knxnetip.hpai_ip_address == 172.19.0.7</strong>
+</blockquote>
+<blockquote>
+(so far only ipv4 addresses will be interpreted correct)
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.hpai_port_number</strong>
+</li>
+
+</ul>
+<blockquote>
+filters all KNXnetIP packages with a HPAI port number field.
+</blockquote>
+<blockquote>
+&nbsp;Moreover it is possible to search for a specific port number, e.g.
+<strong>knxnetip.hpai_port_number == 3671</strong><br />
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.com_ch_id</strong>
+</li>
+</ul>
+<blockquote>
+filters all packages that contain a communication channel ID (unique identifier for
+current connection with a KNXnet/IP server)
+
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific communication channel id,
+e.g.&nbsp;<strong>knxnetip.com_ch_id == 70</strong><br />
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.connect_response_status</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing connect response status field.
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific connect response status, e.g.
+
+<strong>knxnetip.connect_response_status == 0</strong> -&gt; filters all packages where
+the connect response status field is 0. So far there are just four codes available:
+<ol>
+<li>0x00 -&gt; E_NO_ERROR - The connection was established succesfully<br />
+</li>
+<li>0x22 -&gt; E_CONNECTION_TYPE - The requested connection type is not supported by the
+KNXnet/IP server device
+</li>
+<li>0x23 -&gt; E_CONNECTION_TYPE - The requested connection type is not supported by the
+KNXnet/IP server device<br />
+
+</li>
+<li>0x24 -&gt; E_NO_MORE_CONNECTIONS - The KNXnet/IP server could not accept the new data
+connection (Maximum reached)<br />
+</li>
+</ol>&nbsp;
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.connectionstate_response_status</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing connectionstate response status field.
+</blockquote>
+
+<blockquote>
+<br />
+Moreover it is possible to search for a specific connectionstate response status,
+e.g.&nbsp;<strong>knxnetip.connectionstate_response_status == 0</strong> -&gt; filters
+all packages where the connectionstate response status field is 0. So far there are just
+four codes available:
+<ol>
+<li>0x00 -&gt; E_NO_ERROR - The connection state is normal<br />
+</li>
+<li>0x21 -&gt; E_CONNECTION_ID - The KNXnet/IP server device could not find an active
+data connection with the given ID
+
+</li>
+<li>0x26 -&gt; E_DATA_CONNECTION - The KNXnet/IP server device detected an erro
+concerning the Dat connection with the given ID<br />
+</li>
+<li>0x27 -&gt; E_KNX_CONNECTION - The KNXnet/IP server device detected an error
+concerning the KNX Bus with the given ID
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.structure_length</strong>
+</li>
+
+</ul><br />
+<ul>
+<li>
+<strong>knxnetip.connection_type</strong>
+</li>
+</ul>
+<blockquote>
+<blockquote>
+filters all KNXnetIP packages with an existing connection type field.
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific connection type, e.g.
+<strong>knxnetip.connection_type</strong> <strong>== 4</strong> -&gt; filters all
+packages where the connection is a device tunneling connection. So far there are five
+codes available:
+
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>0x03 -&gt; DEVICE_MANAGEMENT_CONNECTION
+</li>
+<li>0x04 -&gt; TUNNELING_CONNECTION
+</li>
+<li>0x06 -&gt; REMOTE_LOGGING_CONNECTION<br />
+</li>
+
+<li>0x07 -&gt; REMOTE_CONFIGURATION_CONNECTION<br />
+</li>
+<li>0x08 -&gt; OBJECT_SERVER_CONNECTION<br />
+</li>
+</ul>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.sequence_counter</strong>
+
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing sequence counter field. Available in
+follwoing four KNXnetIP packages:
+</blockquote>
+<blockquote>
+<ol>
+<li>&nbsp;DEVICE_CONFIGURATION_REQUEST
+</li>
+<li>&nbsp;DEVICE_CONFIGURATION_ACK
+</li>
+<li>&nbsp;TUNNELLING_REQUEST
+</li>
+<li>&nbsp;TUNNELLING_ACK
+</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>
+<strong>knxnetip.reserved</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing reserved field.
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.tunnelling_status</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing description type field (only contained in
+a DIB (Description Information Block)).
+
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific description type, e.g.
+<strong>knxnetip.description_type == 1</strong> -&gt; filters all packages where the DIB
+is a Device information DIB. So far there are three codes available:
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>0x00 -&gt; E_NO_ERROR - The message was received succesfully
+</li>
+<li>0x29 -&gt; E_TUNNELLING_LAYER - The requested tunnelling layer is not supported by
+the KNXnet/IP Server device
+
+</li>
+</ul>
+</blockquote>
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.disconnect_response_status</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing disconnect response status field.
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.description_type</strong>
+
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing description type field (only contained in
+a DIB (Description Information Block)).
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific description type, e.g.
+<strong>knxnetip.description_type == 1</strong> -&gt; filters all packages where the DIB
+is a Device information DIB. So far there are three codes available:
+<ol>
+<li>0x01 -&gt; DEVICE_INFO<br />
+
+</li>
+<li>0x02 -&gt; SUPP_SVC_FAMILIES - Service families supported by the device
+</li>
+<li>0xFE -&gt; knxnetip.description_type == 1
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.knx_medium_code</strong>
+</li>
+</ul>
+
+<blockquote>
+filters all KNXnetIP packages with an existing knx medium code field (only contained in a
+Device Information DIB (Description Information Block)).
+</blockquote>
+<blockquote>
+Moreover it is possible to search for a specific&nbsp; knx medium code,
+e.g.&nbsp;<strong>knxnetip.knx_medium_code == 2</strong> -&gt; filters all packages where
+the medium is TP1. So far there are just five codes available:
+<ol>
+<li>0x01 -&gt; TP0<br />
+
+</li>
+<li>0x02 -&gt; TP1
+</li>
+<li>0x04 -&gt; PL110
+</li>
+<li>0x08 -&gt; PL132
+</li>
+<li>0x10 -&gt; RF<br />
+
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.device_status</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing device status field (only contained in a
+Device Information DIB (Description Information Block)).
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.physical_address</strong>
+</li>
+
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing physical address field (only contained in
+a Device Information DIB (Description Information Block)).
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.project_installation_ID</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing project installation identifier field
+(only contained in a Device Information DIB (Description Information Block)).
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.knx_device_serial_number</strong>
+
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing device serial number field (only contained
+in a Device Information DIB (Description Information Block)).
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.device_routing_multicast_address</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing device routing multicast address field
+(only contained in a Device Information DIB (Description Information Block)).
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.mac_address</strong>
+
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing MAC address field (only contained in a
+Device Information DIB (Description Information Block)).<br />
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.device_friendly_name</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing device friendly name.
+</blockquote>
+<ul>
+<li>
+
+<strong>knxnetip.service_family_id</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing service family identifier field. (only
+contained Supported Service Families DIB (Description Information Block))<br />
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.knx_manufacturer_ID</strong>
+</li>
+</ul>
+<blockquote>
+filters all KNXnetIP packages with an existing manufacturer identifier field. (only
+contained Manufacturer Data DIB (Description Information Block))<br />
+
+</blockquote>
+<ul>
+<li>
+<strong>knxnetip.cemi</strong>
+</li>
+</ul>
+<blockquote>
+filters all packages that contain a cEMI payload.<br />
+</blockquote>
+<hr />
+<h3>
+<u>Available Service Types:</u> <a name="ServiceTypes" title="ServiceTypes"></a>
+</h3>
+<table border="0" summary="Available Service Types">
+<tbody>
+<tr>
+<td>
+&nbsp;0x0201
+</td>
+<td>
+SEARCH_REQUEST<br />
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0202
+</td>
+<td>
+
+SEARCH_RESPONSE
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0203
+</td>
+<td>
+DESCRIPTION_REQUEST
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0204
+</td>
+<td>
+DESCRIPTION_RESPONSE
+
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0205
+</td>
+<td>
+CONNECT_REQUEST
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0206
+</td>
+<td>
+CONNECT_RESPONSE
+</td>
+
+</tr>
+<tr>
+<td>
+&nbsp;0x0207
+</td>
+<td>
+CONNECTIONSTATE_REQUEST
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0208
+</td>
+<td>
+CONNECTIONSTATE_RESPONSE
+</td>
+</tr>
+
+<tr>
+<td>
+&nbsp;0x0209
+</td>
+<td>
+DISCONNECT_REQUEST
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x020A
+</td>
+<td>
+DISCONNECT_RESPONSE
+</td>
+</tr>
+<tr>
+
+<td>
+&nbsp;0x0310
+</td>
+<td>
+DEVICE_CONFIGURATION_REQUEST
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0311
+</td>
+<td>
+DEVICE_CONFIGURATION_ACK
+</td>
+</tr>
+<tr>
+<td>
+
+&nbsp;0x0420
+</td>
+<td>
+TUNNELLING_REQUEST
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0421
+</td>
+<td>
+TUNNELLING_ACK
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0530
+
+</td>
+<td>
+ROUTING_INDICATION
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;0x0531
+</td>
+<td>
+ROUTING_LOST_MESSAGE
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;
+</td>
+
+<td>
+&nbsp;
+</td>
+</tr>
+</tbody>
+</table>
+<br />
+<h2>Build howto</h2>
+<p>
+The build howtos for Linux and MS Windows can be found in the doc directory of the source repository. Follow this <a href="http://knxnetipdissect.svn.sourceforge.net/viewvc/knxnetipdissect/trunk/doc/">link</a> to get the latest files.
+</p>
+</div>
+<div id="footer">&copy; 2009 Harald Weillechner, Daniel Lechner | Design By <a href="http://www.zilladesigns.net">Jeremy D.</a> </div>
+</div>
+</body>
+</html>

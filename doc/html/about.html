@@ -12,27 +12,11 @@
 </div>
 <div id="navigation"><a href="index.html">Home</a> <a href="https://sourceforge.net/project/showfiles.php?group_id=256885">Download</a> <a href="install.html">Install</a> <a href="doc.html">Documentation</a> <a href="links.html">Links</a> <a href="about.html">About</a> </div>
 <div id="content">
-<p>
-This Wireshark plugin allows to dissect KNXnet/IP packages but not the payload which
-means it does not dissect encapsulated cEMI frames. Current version was written and
-tested under WinXP Pro SP2 and Kubuntu 8.10 with Wireshark version 1.0.6. It is still in
-beta stage since not all possible messages which may occur were tested.
-</p>
 
-<p>
-This plugin is not bounded to a dedicated TCP or UDP port. Instead, it is implemented as
-so called "heuristic" dissector. Every TCP and UDP packet will be analysed by this
-plugin. If it fulfills some criteria (like the basic structure of the header), it will be
-considered to be a KNXnet/IP packet and treated by the plugin.
-</p>
-<p>
-&nbsp;<img src="images/wireshark02.PNG"
-   alt="Active Image"
-   width="816"
-   height="725"
-   align="middle" />
-</p>
-
+<p>This Wireshark plugin was written in the course of the lecture "Home and building automation" at the Technical University Vienna.</p>
+<p>The authors of this project are Harald Weillechner and Daniel Lechner. If you have any questions, you can contact them via haraldweillechner&lt;&lt;AT&gt;&gt;gmx.at and winequarter&lt;&lt;AT&gt;&gt;sourceforge.net, or via the sourceforge project page (e.g. forum, bugtracker, ...).</p>
+</br>
+<p>The KNX-Logo is a trademark of the KNX Association. The Wireshark logo is a trademark of the Wireshark Foundation.
 </div>
 <div id="footer">&copy; 2009 Harald Weillechner, Daniel Lechner | Design By <a href="http://www.zilladesigns.net">Jeremy D.</a> </div>
 </div>
