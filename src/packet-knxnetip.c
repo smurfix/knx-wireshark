@@ -214,7 +214,9 @@ static gint hf_knxnet_ip_device_configuration_status = -1;
 
 // dummy field to indicate present cEMI record
 static gint hf_knxnet_ip_cemi = -1;
-
+static gint hf_knxnet_ip_device_state = -1;
+static gint hf_knxnet_ip_number_of_lost_messages = -1;
+ 
 
 /* static gint hf_knxnet_ip_text = -1;
 static gint hf_knx_ip_text2 = -1;
@@ -260,7 +262,8 @@ static gint ett_knxnet_ip_knx_manufacturer_ID = -1;
 static gint ett_knxnet_ip_device_configuration_status = -1;
 
 static gint ett_knxnet_ip_cemi = -1;
-
+static gint ett_knxnet_ip_device_state = -1;
+static gint ett_knxnet_ip_number_of_lost_messages = -1;
 
 void proto_reg_handoff_knxnet_ip(void)
 {
@@ -409,6 +412,12 @@ void proto_register_knxnet_ip (void)
          { &hf_knxnet_ip_cemi,
          { "KNX cEMI", "knxnetip.cemi", FT_BYTES, BASE_NONE, NULL, 0x0,
           "knxnet_ip cEMI", HFILL }},
+		{ &hf_knxnet_ip_device_state,
+        { "DeviceState", "knxnetip.devicestate", FT_UINT8, BASE_HEX, NULL, 0x0,
+         "knxnet_ip DeviceState", HFILL }},
+		{ &hf_knxnet_ip_number_of_lost_messages,
+        { "NumberOfLostMessages", "knxnetip.numberoflostmessages", FT_UINT16, BASE_DEC, NULL, 0x0,
+         "knxnet_ip NumberOfLostMessages", HFILL }},
     };
     static gint *ett[] = {
         &ett_knxnet_ip,
@@ -444,7 +453,9 @@ void proto_register_knxnet_ip (void)
         &ett_knxnet_ip_service_family_ID,
         &ett_knxnet_ip_knx_manufacturer_ID,
         &ett_knxnet_ip_device_configuration_status,
-        &ett_knxnet_ip_cemi
+        &ett_knxnet_ip_cemi,
+		&ett_knxnet_ip_device_state,
+		&ett_knxnet_ip_number_of_lost_messages
     };
 
 
@@ -663,11 +674,18 @@ dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree)
         guint32 offset = 0;
         guint8 hlength = 0;
         guint8 com_ch_id = 0;
-        guint16 tlength = 0;
+		guint16 tlength = 0;
         guint8 version = 0;
         guint8 crd_length = 0;
         guint8 sequence_counter = 0;
 		guint8 reserved = 0;
+		
+		// variables for routing lost messages only - begin
+		guint16 numberoflostmessages = 0;
+		guint8 devicestate = 0;
+		guint8 structure_length = 0;
+		// variables for routing lost messages only - begin
+		
 
         gchar version_str[KNXNETIP_MAX_VERSION_STRING_SIZE];
 
@@ -865,9 +883,24 @@ dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree)
 			// cEMI
 			// proto_tree_add_boolean(knxnet_ip_body_tree,hf_knxnet_ip_cemi, tvb, offset, 0, TRUE);
 			checkcEMISubDissector(tvb,pinfo,knxnet_ip_body_tree,offset);
+			
             break;
         case(_ROUTING_LOM): /* ROUTING_LOST_MESSAGE */
-            offset = dissect_hpai(tvb,offset,knxnet_ip_body_tree,NULL);
+			/*LostMessageInfo*/
+			proto_tree_add_text(knxnet_ip_body_tree, tvb, offset, 4,"LostMessageInfo");
+			
+			tvb_memcpy(tvb, (guint8 *)&structure_length, offset, 1); /*get structure length*/
+			proto_tree_add_uint(knxnet_ip_body_tree, hf_knxnet_ip_structure_length, tvb, offset, 1, structure_length);
+			offset+=1;
+			tvb_memcpy(tvb, (guint8 *)&devicestate, offset, 1); /*get structure length*/
+			proto_tree_add_uint(knxnet_ip_body_tree, hf_knxnet_ip_device_state, tvb, offset, 1, devicestate);
+			offset+=1;
+			tvb_memcpy(tvb, (guint8 *)&numberoflostmessages, offset, 2); /*get structure length*/
+			numberoflostmessages = convert_uint16(numberoflostmessages);
+			proto_tree_add_uint(knxnet_ip_body_tree, hf_knxnet_ip_number_of_lost_messages, tvb, offset, 2, numberoflostmessages);
+			offset+=2;
+			//offset = dissect_hpai(tvb,offset,knxnet_ip_body_tree,NULL);
+			
             break;
         default:
             offset = dissect_hpai(tvb,offset,knxnet_ip_body_tree,NULL);
