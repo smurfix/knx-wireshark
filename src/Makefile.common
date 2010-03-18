@@ -3,7 +3,7 @@
 # ============================================================================
 # Name        : Makefile.common
 # Author      : Harald Weillechner, Daniel Lechner
-# Version     : 0.0.3
+# Version     : 0.0.4
 # Licence     : GPL
 # Description : Makefile.common for KNXnet/IP Wireshark plugin
 #     Contains the stuff from Makefile.am and Makefile.nmake that is

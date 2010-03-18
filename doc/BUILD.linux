@@ -7,8 +7,8 @@ This document should give a brief insight on howto build the KNXnet/IP dissector
 2. Requirements
 ---------------
 
-The plugin version 0.0.3 was built on Kubuntu 8.10 (kernel version 2.6.27-11-generic).
-The used GLib version was 2.18.2, GCC version was 4.3.2-1.
+The plugin version 0.0.4 was built on Kubuntu 9.10 (kernel version 2.6.31-20-generic).
+The used GLib version was 2.22.3-0ubuntu1, GCC version was 4.4.1.
 To build the plugin, of course you need the development packages of the GLib.
 
 Download the Wireshark source from the Wireshark project page (maybe it is also possible to use Wireshark-dev packages of your distribution - I don't know). You will get a lot of information at http://www.wireshark.org. I used the latest developer version from the subversion repository. Copy our KNXnet/IP plugin into the source tree. When we did it, the appropriate directory was: "wireshark/plugins/knxnetip"

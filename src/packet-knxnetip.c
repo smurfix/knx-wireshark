@@ -4,7 +4,7 @@
  ============================================================================
  Name        : packet-knxnetip
  Author      : Harald Weillechner, Daniel Lechner
- Version     : 0.0.3
+ Version     : 0.0.4
  Licence     : GPL
  Description : Wireshark dissector for KNXnet/IP packets
  ============================================================================

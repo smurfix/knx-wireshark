@@ -3,7 +3,7 @@
  * ============================================================================
  * Name        : plugin.rc.in
  * Author      : Harald Weillechner, Daniel Lechner
- * Version     : 0.0.3
+ * Version     : 0.0.4
  * Licence     : GPL
  * Description : configuration file for the Windows-DLL
  * ============================================================================

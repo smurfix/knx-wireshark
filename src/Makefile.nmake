@@ -3,7 +3,7 @@
 # ============================================================================
 # Name        : Makefile.nmake
 # Author      : Harald Weillechner, Daniel Lechner
-# Version     : 0.0.3
+# Version     : 0.0.4
 # Licence     : GPL
 # Description : Makefile.nmake for KNXnet/IP Wireshark plugin (Windows build)
 # ============================================================================

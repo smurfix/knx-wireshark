@@ -8,3 +8,6 @@ windows & linux version running
 ---- Version 0.0.3 ----
 provide ability to write cEMI dissector
 several small bugfixes and code 
+
+---- Version 0.0.4 ----
+add missing ROUTING_LOST_MESSAGE

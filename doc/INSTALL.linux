@@ -1,7 +1,7 @@
 1. Installallation
 ------------------
 
-Download the latest release of the linux binary of the KNXnet/IP plugin (e.g. KNXnetIP_plugin_V0.0.3_linux.tar.gz). Extract the contents to a temporary directory.
+Download the latest release of the linux binary of the KNXnet/IP plugin (e.g. KNXnetIP_plugin_V0.0.4_linux.tar.gz). Extract the contents to a temporary directory.
 Copy the contents of knxnetip/plugins (there should be 2 files) into your Wireshark plugins directory (e.g. under ubuntu /usr/lib/wireshark/plugins/ )
 
 Restart Wireshark (if it is running) and enjoy our plugin!
@@ -9,7 +9,7 @@ Restart Wireshark (if it is running) and enjoy our plugin!
 2. Binary information
 ---------------------
 
-The plugin version 0.0.3 was built on Kubuntu 8.10 (kernel version 2.6.27-11-generic).
-The used GLib version was 2.18.2, GCC version was 4.3.2-1.
+The plugin version 0.0.4 was built on Kubuntu 9.10 (kernel version 2.6.31-20-generic).
+The used GLib version was 2.22.3-0ubuntu1, GCC version was 4.4.1.
 
 

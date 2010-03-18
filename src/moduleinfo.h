@@ -4,7 +4,7 @@
  ============================================================================
  Name        : moduleinfo.h
  Author      : Harald Weillechner, Daniel Lechner
- Version     : 0.0.3
+ Version     : 0.0.4
  Licence     : GPL
  Description : global module informations
  ============================================================================
@@ -24,6 +24,6 @@
 #endif
 
 /* Version number of package */
-#define VERSION "0.0.3"
+#define VERSION "0.0.4"
 
 
