@@ -70,7 +70,7 @@ static heur_dissector_list_t heur_subdissector_list;
 
 //static dissector_handle_t knxnet_ip_handle;
 //static dissector_handle_t knxnet_ip_body_handle;
-static gboolean dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree);
+static gboolean dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void *unused);
 
 //static int global_knxnet_ip_port = 3671;
 
@@ -606,7 +606,7 @@ static void checkcEMISubDissector(tvbuff_t *tvb, packet_info *pinfo, proto_tree 
 
 
     /* Allow sub dissectors to have a chance with this data */
-    if(!dissector_try_heuristic(heur_subdissector_list, next_tvb, pinfo, tree))
+    if(!dissector_try_heuristic(heur_subdissector_list, next_tvb, pinfo, tree, NULL,NULL))
     {
        /* No sub dissector did recognize this data, dissect it as data only */
        proto_tree_add_item(tree, hf_knxnet_ip_cemi, tvb, offset, len, FALSE);
@@ -624,7 +624,7 @@ static void checkcEMISubDissector(tvbuff_t *tvb, packet_info *pinfo, proto_tree 
 
 
 static gboolean /*use a gboolean return value for a heuristic dissector, void  otherwise*/
-dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree)
+dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void *unused)
 {
 
     proto_item *knxnet_ip_item = NULL;
