@@ -643,7 +643,7 @@ dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void *unu
     if ( tvb_get_guint8(tvb, 0) != KNXNETIP_HEADER_LENGTH) return (FALSE); //check for Header length (is always 6Bytes)
     if ( tvb_get_guint8(tvb, 1) !=  KNXNETIP_PROTOCOL_VERSION) return (FALSE); //check for version
     //check for Service Type identifier
-	match_strval_idx((guint32)tvb_get_ntohs(tvb, 2),knxnetip_service_type,&index);
+	try_val_to_str_idx((guint32)tvb_get_ntohs(tvb, 2),knxnetip_service_type,&index);
 	if(index == -1) return (FALSE);
 	/*check for length: The total length is expressing the total KNXnet/IP frame length in octets.
 	 *The length includes the complete KNXnet/IP frame, starting with the header length of the KNXnet/IP header and including the whole KNXnet/IP body.
@@ -652,23 +652,18 @@ dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void *unu
     /*-----------------Heuristic Checks - End*/
 
 
-    if (check_col(pinfo->cinfo, COL_PROTOCOL))
-        col_set_str(pinfo->cinfo, COL_PROTOCOL, PROTO_TAG_KNXNET);
+    col_set_str(pinfo->cinfo, COL_PROTOCOL, PROTO_TAG_KNXNET);
     /* Clear out stuff in the info column */
-    if(check_col(pinfo->cinfo,COL_INFO)){
-        col_clear(pinfo->cinfo,COL_INFO);
-    }
+    col_clear(pinfo->cinfo,COL_INFO);
 
     // This is not a good way of dissecting packets.  The tvb length should
     // be sanity checked so we aren't going past the actual size of the buffer.
     type = tvb_get_ntohs( tvb, 2 ); // Get the type  - 2bytes
 
 
-    if (check_col(pinfo->cinfo, COL_INFO)) {
-        col_add_fstr(pinfo->cinfo, COL_INFO, "%s %d > %d",
-			val_to_str(type, knxnetip_service_type, "Unknown Type:0x%02x"),
-			pinfo->srcport, pinfo->destport);
-    }
+    col_add_fstr(pinfo->cinfo, COL_INFO, "%s %d > %d",
+		val_to_str(type, knxnetip_service_type, "Unknown Type:0x%02x"),
+		pinfo->srcport, pinfo->destport);
 
     if (tree) { /* we are being asked for details */
         guint32 offset = 0;
