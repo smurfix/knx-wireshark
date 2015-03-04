@@ -590,6 +590,7 @@ static void checkcEMISubDissector(tvbuff_t *tvb, packet_info *pinfo, proto_tree 
 	gint len;
 	gint reported_len;
 	tvbuff_t *next_tvb;
+        heur_dtbl_entry_t *heur_dtbl_entry = NULL;
 
 	/**
 	 * call - if available - the subdissector
@@ -606,7 +607,7 @@ static void checkcEMISubDissector(tvbuff_t *tvb, packet_info *pinfo, proto_tree 
 
 
     /* Allow sub dissectors to have a chance with this data */
-    if(!dissector_try_heuristic(heur_subdissector_list, next_tvb, pinfo, tree, NULL,NULL))
+    if(!dissector_try_heuristic(heur_subdissector_list, next_tvb, pinfo, tree, &heur_dtbl_entry, NULL))
     {
        /* No sub dissector did recognize this data, dissect it as data only */
        proto_tree_add_item(tree, hf_knxnet_ip_cemi, tvb, offset, len, FALSE);
