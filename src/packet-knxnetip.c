@@ -265,7 +265,7 @@ static gint ett_knxnet_ip_cemi = -1;
 static gint ett_knxnet_ip_device_state = -1;
 static gint ett_knxnet_ip_number_of_lost_messages = -1;
 
-void proto_reg_handoff_knxnet_ip(void)
+void plugin_reg_handoff(void)
 {
     /* static gboolean initialized=FALSE;
 
@@ -304,7 +304,7 @@ void proto_reg_handoff_knxnet_ip(void)
 }
 
 
-void proto_register_knxnet_ip (void)
+void plugin_register(void)
 {
     /* A header field is something you can search/filter on.
     *
