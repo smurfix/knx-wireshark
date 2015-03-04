@@ -903,3 +903,7 @@ dissect_knxnet_ip(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void *unu
     }
     return TRUE;
 }
+
+
+char *version = "KNX decoder v0.1.0";
+
