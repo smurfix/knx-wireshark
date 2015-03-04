@@ -1,3 +1,32 @@
+0. Out of date
+--------------
+
+This document is out of date, mainly because the original authors forgot to
+include the "configure.ac" file and the next author was too lazy to write a
+new one.
+
+First, you'll need development libraries and headers for wireshark and
+glib2.0; on Debian/Ubuntu systems you can install them with
+
+	$ sudo apt-get install libwireshark-dev libglib2.0-dev
+
+To build and install the plugin, simply do
+
+	$ cd src
+	$ ./BUILD.sh
+
+If you want to debug the plugin, do this:
+
+	$ apt-get source wireshark
+	$ sudo apt-get install wireshark-dbg
+	$ DEBUG=-g ./BUILD.sh
+	$ gdb /usr/bin/wireshark
+
+If gdb doesn't find wireshark's sources, the "directory" command is your friend.
+
+The rest of this document is of historical interest only
+(at least for now).
+
 1. About
 --------
 

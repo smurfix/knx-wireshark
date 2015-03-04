@@ -1,9 +1,12 @@
 # knx-wireshark
-A Wireshark dissectpr for KNX datagrams
 
-This code is initially from svn://svn.code.sf.net/p/knxnetipdissect/code
-I converted the repository to git and updated the core to work with Wireshark 1.12.
-(Older versions are not supported.)
+This code implements a rudimentary dissector of KNX datagrams for Wireshark.
+
+The code is initially from svn://svn.code.sf.net/p/knxnetipdissect/code;
+the authors appear to be Harald Weillechner and Daniel Lechner.
+
+Matthias Urlichs converted the repository to git and updated the core to
+work with Wireshark 1.12. (Older versions are not supported.)
 
 License: GPL v3.
 
