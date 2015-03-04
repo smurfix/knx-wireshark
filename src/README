@@ -1,6 +1,9 @@
 This is a short description of the KNXnet/IP Wireshark dissector. The project is hosted on http://knxnetipdissect.sourceforge.net/.
 Documentation can be found at the project website or in the doc-directory of the source.
 
+NOTE: The original author forgot to check in the configure.ac file, 
+thus the Makefile.am is useless. For the time being I have included a
+simple build script.
 
 Files in this directory:
 AUTHORS
