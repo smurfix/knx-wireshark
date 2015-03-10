@@ -5,7 +5,7 @@
 
 DEBUG=${DEBUG:--O2}
 if ! pkg-config wireshark glib-2.0; then
-    echo "You need to install libwireshark-dev and libglib-2.0-dev."
+    echo "You need to install libwireshark-dev and libglib2.0-dev."
     exit 1
 fi
 gcc $DEBUG -DWS_MSVC_NORETURN= -DHAVE_STDARG_H $(pkg-config glib-2.0 wireshark --cflags) -c -fPIC  packet-knxnetip.c
